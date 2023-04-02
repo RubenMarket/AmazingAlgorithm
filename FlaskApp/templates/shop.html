@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+{% block title %} <title> shop  </title> {% endblock %}
+{% block body %}
+    <body class="creat-page">
+        <header>
+            <div class="container-fluid">
+                <div class="mobile-logo">
+                    <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header-inner">
+                            <div class="logo">
+                                <a href="#"></a>
+                            </div>
+                            <div class="header-right">
+                                <ul>
+                                    <li><a class="creat_star creat_star_logo" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a></li>
+                                    <!--<li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="images/menu.svg" alt="" /></a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </header>
+        <section class="news-banner shop-banner">
+            <div class="news-banner-inner">
+                <div class="navigation">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('news') }}">
+                                <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('shop') }}">
+                                <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('info') }}">
+                                <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="create-modal-main shop-main">
+                    <div class="create-modal shop-product">
+                        <div class="product-area">
+                            <h3>Product Here</h3>
+                        </div>
+                        <form>  
+                            <h4 class="product-price">10</h4>
+                            
+                          <div class="form-group">
+                              <div class="btn-area">
+                                  <button class="btn btn-default" type="button" >Buy</button>
+                              </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        {% endblock %}

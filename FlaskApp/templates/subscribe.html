@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+{% block title %} <title> Awe Technology </title> {% endblock %}
+{% block body %}
+    <body class="creat-page">
+        <header>
+            <div class="container-fluid">
+                <div class="mobile-logo">
+                    <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header-inner">
+
+                            <div class="header-right">
+                                <ul>
+                                    <li><a class="creat_star creat_star_logo" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a></li>
+                                    <!--<li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="images/menu.svg" alt="" /></a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="news-banner">
+            <div class="news-banner-inner">
+                <div class="navigation">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('news') }}">
+                                <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('shop') }}">
+                                <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('info') }}">
+                                <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="create-modal-main">
+                    <div class="create-modal">
+                        <form action="/create-checkout-session" method="POST">
+                           <div class="form-group">
+                               <h3>Subscribe to a Sirius company for these benefits</h3>
+                           </div>
+                            <div class="form-group">
+                                <input type="hidden" name="lookup_key" value="utopytest" />
+                                <input type="submit" class="btn btn-default" id="checkout-button" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}

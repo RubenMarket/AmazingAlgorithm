@@ -1,0 +1,75 @@
+{% extends "index.html" %}
+{% block title %} <title> create account  </title> {% endblock %}
+{% block body %}
+    <body class="creat-page">
+        <header>
+            <div class="container-fluid">
+                <div class="mobile-logo">
+                    <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header-inner">
+                            <div class="logo">
+                                <a href="{{ url_for('home') }}">A Sirius Company</a>
+                            </div>
+                            <div class="header-right">
+                                <ul>
+                                    <li><a class="creat_star creat_star_logo" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a></li>
+                                    <!--<li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="images/menu.svg" alt="" /></a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="news-banner">
+            <div class="news-banner-inner">
+                <div class="navigation">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('news') }}">
+                                <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('shop') }}">
+                                <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('info') }}">
+                                <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="create-modal-main">
+                    <div class="create-modal">
+                        <form method="POST" action="">
+                            <div class="form-group">
+                                <input type="username" name="username" class="form-control" maxlength="11" placeholder="username" />
+                                <span>@ asirius.co</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control" minlength="7" placeholder="password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="name" name="name" class="form-control" placeholder="name" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="number" class="form-control" placeholder="phone Number" />
+                            </div>
+                            <!-- <div class="form-group">
+                                <input type="text" name="pin" class="form-control" placeholder="pin (5 numbers)" />
+                            </div> -->
+                            <div class="form-group">
+                                <input type="submit" name="createBut" class="btn btn-default" value="Create" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}

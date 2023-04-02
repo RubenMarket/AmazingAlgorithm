@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content=" sirius awe website ">
+        <meta name="author" content="ruben market">
+        <script src="https://js.stripe.com/v3/"></script
+        <meta name="keywords" content="technology sirius awe a sirius company ruben utopyism">
+        <link rel="icon" href="{{ url_for('static',filename='images/favicon.png') }}" sizes="32x32" />
+        <link rel="icon" href="{{ url_for('static',filename='images/favicon.png') }}" sizes="192x192" />
+        <link rel="apple-touch-icon-precomposed" href="{{ url_for('static',filename='images/favicon.png') }}" />
+        <meta name="msapplication-TileImage" content="{{ url_for('static',filename='images/favicon.png') }}" />
+        <link rel="shortcut icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}" />
+        {% block title %} {% endblock %}
+        <!--CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <!-- Add custom CSS here -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    </head>
+    {% block body %}
+    {% endblock %}
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+</body>
+</html>

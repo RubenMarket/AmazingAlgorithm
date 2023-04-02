@@ -1,0 +1,110 @@
+{% extends "index.html" %}
+{% block title %} <title> info  </title> {% endblock %}
+{% block body %}
+    <body class="info-page">
+        <header>
+            <div class="container-fluid">
+                <div class="mobile-logo">
+                    <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header-inner">
+                            <div class="logo">
+                                <a href="#"></a>
+                            </div>
+                            <div class="header-right">
+                                <ul>
+                                    <li><a class="creat_star creat_star_logo" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a></li>
+                                    <!--<li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="images/menu.svg" alt="" /></a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="news-banner">
+            <div class="news-banner-inner">
+                <div class="navigation">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('news') }}">
+                                <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('shop') }}">
+                                <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('info') }}">
+                                <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="create-modal-main info-setting-main">
+                    <div class="create-modal info-setting">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                              
+                                </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="" />
+                                <span>@ asirius.co</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Password (7 bits)" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="New Password" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="First Name" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Phone Number" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Bday" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Pin (5 numbers)" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Favorite Color" />
+                            </div>
+                          
+                            <div class="form-group col-md-6">
+                                <div class="text-with-checkbox">
+                               <label>Text Alerts</label>
+                               <input type="checkbox" class="form-control alert-checkbox">
+                            </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                              
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div class="text-with-checkbox">
+                                <label>Email Forwarding</label>
+                                <input type="checkbox" class="form-control alert-checkbox">
+                                </div>
+                             </div>
+                             <div class="form-group col-md-6">
+                               <label class="faq">F.A.Q.</label>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Forward to" />
+                            </div>
+                          
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
