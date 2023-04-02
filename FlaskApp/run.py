@@ -5,6 +5,7 @@ from config import *
 from authlib.integrations.flask_client import OAuth
 from flask_session import Session
 from models import *
+import user
 import stripe
 # path
 # cd c:\Users\ruben\OneDrive\Desktop\Utopyism\FlaskApp
@@ -41,8 +42,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 oauth = OAuth(app)
-hasSession = False
-global personID
+
 # 22
 # Create a state token to prevent request forgery.
 # Store it in the session for later validation.
@@ -56,11 +56,11 @@ global personID
 #                     APPLICATION_NAME=APPLICATION_NAME))
 #Database
 db = client.Utopyism
-people = db.People
-MainBase = db.MainBase
-news = db.News
+People = db.People
+# MainBase = db.MainBase
+# News = db.News
 YOUR_DOMAIN = 'http://127.0.0.1:5000'
-currentPerson = Person()
+
 
      
 #intial route (not signed in)
@@ -150,17 +150,23 @@ def google_auth():
     # user = oauth.google.parse_id_token(token)
     print(" Google User ", userinfo)
     email = userinfo['email']
-    encryptedEmail = pbkdf2_sha256.hash(email)
-    person = people.find_one({Companies.google.value: encryptedEmail})
+    person = People.find_one({Companies.google.value : email})
     if person:
-        currentPerson = Person(id=person['_id'],isSubscribed=person['isSubscribed'],AweCoin=person['AweCoin'],paymentID=['paymentID'])
+        user.currentPersonID = person['_id']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
-        print(currentPerson)
+        print(user.currentPersonID)
+        print("here,google auth person found")
         return redirect('/home')
-    Person.makeNewPerson(email=email,company=Companies.google.value)
-    # makenewperson people.insert_one(newPerson)
-    return redirect('/home')
+    # makenewperson 
+    else:
+        newPerson = Person.makeNewPerson(email=email,company=Companies.google.value)
+        People.insert_one(newPerson)
+        user.currentPersonID = newPerson['_id']
+        # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
+        print(user.currentPersonID)
+        print("here1")
+        return redirect('/home')
     
     
 @app.route('/facebook/')
@@ -319,15 +325,14 @@ def webhook_received():
 def success():
     session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
     customer = stripe.Customer.retrieve(session.customer)
-    encryptedEmail = pbkdf2_sha256.hash(customer['email'])
-    customerID = customer['id']
-    person = people.find_one({Companies.google.value: encryptedEmail})
-#     people.find_one_and_update({"_id": personID},{
-#   '$set': {
-#     'paymentEmail': encryptedEmail,
-#     'isSubscribed' : True
-#   }
-# })
+    customerID = str(customer['id'])
+    print(customerID)
+    print(user.currentPersonID)
+    print(" ^^^ ")
+    myquery = { "_id": user.currentPersonID }
+    newvalues = { "$set": { "paymentID": customerID } }
+    People.update_one(myquery, newvalues)
+    
     print(customer)
     return render_template('home.html')
 

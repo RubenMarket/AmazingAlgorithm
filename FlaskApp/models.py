@@ -3,11 +3,11 @@ from passlib.hash import pbkdf2_sha256
 from enum import Enum
 
 class Companies(Enum):
-    google = 'Google'
+    google = "Google"
     facebook = "Facebook"
     twitter = "Twitter"
     github = "Github"
-    Amazon = "Amazon"
+    amazon = "Amazon"
     
 class VotingOptions(Enum):
     low = -1
@@ -15,11 +15,6 @@ class VotingOptions(Enum):
     high = 1
     
 class Person:
-    id = ""
-    isSubscribed = False
-    AweCoin = 0
-    paymentID = ""
-    
     def __init__(self, id, isSubscribed, AweCoin, paymentID):
       self.id = id
       self.isSubscribed = isSubscribed
@@ -28,9 +23,9 @@ class Person:
       
     def makeNewPerson(email,company):
      id = ObjectId()
-     encryptedEmail = pbkdf2_sha256.hash(email)
+    #  encryptedEmail = pbkdf2_sha256.hash(email)
      return {
-            company : encryptedEmail,
+            company : email,
             "_id" : str(id),
             "isSubscribed" : False,
             "AweCoin" : 0,
