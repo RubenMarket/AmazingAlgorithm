@@ -1,8 +1,7 @@
-# A Sirius Site
+# Utopyism
 
 
-Sirius Awe, LLC Utopyism implementation
-Utopyistic Algorithm
+Utopyism implementation and Algorithm
 
 Utopyism:
 
