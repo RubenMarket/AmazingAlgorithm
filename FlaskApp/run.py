@@ -6,12 +6,8 @@ from authlib.integrations.flask_client import OAuth
 from flask_session import Session
 from models import *
 import stripe
-
-# v  start virtual enviornment v(Mac)
-#  --> source venv/bin/activate
-
 # path
-# cd c:\Users\ruben\OneDrive\Desktop\A-Sirius-Site-master\FlaskApp
+# cd c:\Users\ruben\OneDrive\Desktop\Utopyism\FlaskApp
 
 # Activate the virtualenv (Windows)
 # $ venv\Scripts\activate
@@ -29,7 +25,7 @@ import stripe
 #   --> pip3 install -r requirements.txt
 
 # run application 
-#   --> python3 run.py
+#   --> pytho3 run.py
 
 
 # stop application 
@@ -64,19 +60,19 @@ people = db.People
 MainBase = db.MainBase
 news = db.News
 YOUR_DOMAIN = 'http://127.0.0.1:5000'
-
+currentPerson = Person()
 
      
 #intial route (not signed in)
 @app.route("/",methods = ['POST','GET'])
 def dull():
     # check for session cookie, if active then log in person
-    if not session.get("ID"):
+    # if not session.get("ID"):
         
-        return render_template("dull.html")
-    else:
-        return render_template("home.html")
-        
+    #     return render_template("dull.html")
+    # else:
+    #     return render_template("home.html")
+    return render_template("dull.html")
     # if request.method == "POST":
     #    username = request.form.get("username")
     #    email = username + companyDomainExtension
@@ -153,18 +149,20 @@ def google_auth():
     # token = oauth.google.authorize_access_token()
     # user = oauth.google.parse_id_token(token)
     print(" Google User ", userinfo)
-    returningPerson = returningPersonCheck(userinfo['email'],Companies.google.value,people)
-    if returningPerson:
-        session["ID"] = returningPerson['_id']
-        personID = returningPerson['_id']
+    email = userinfo['email']
+    encryptedEmail = pbkdf2_sha256.hash(email)
+    person = people.find_one({Companies.google.value: encryptedEmail})
+    if person:
+        currentPerson = Person(id=person['_id'],isSubscribed=person['isSubscribed'],AweCoin=person['AweCoin'],paymentID=['paymentID'])
+        # set current person
+        # set session data  session["ID"] = returningPerson['_id']
+        print(currentPerson)
         return redirect('/home')
-    else:
-        newPerson = makeNewPerson(userinfo['email'],Companies.google.value)
-        people.insert_one(newPerson)
-        session["ID"] = newPerson['_id']
-        return redirect('/home') 
+    Person.makeNewPerson(email=email,company=Companies.google.value)
+    # makenewperson people.insert_one(newPerson)
+    return redirect('/home')
     
-
+    
 @app.route('/facebook/')
 def facebook():
    
@@ -322,12 +320,14 @@ def success():
     session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
     customer = stripe.Customer.retrieve(session.customer)
     encryptedEmail = pbkdf2_sha256.hash(customer['email'])
-    people.find_one_and_update({"_id": personID},{
-  '$set': {
-    'paymentEmail': encryptedEmail,
-    'isSubscribed' : True
-  }
-})
+    customerID = customer['id']
+    person = people.find_one({Companies.google.value: encryptedEmail})
+#     people.find_one_and_update({"_id": personID},{
+#   '$set': {
+#     'paymentEmail': encryptedEmail,
+#     'isSubscribed' : True
+#   }
+# })
     print(customer)
     return render_template('home.html')
 

@@ -11,14 +11,12 @@
               <div class="col-12">
                   <div class="header-inner">
                       <div class="header-retting">
-                          
-                      </div>
-                      <div class="header-form">
-                        
-                        <ul>
-                        <li><a class="subscribe" href="{{ url_for('subscribe') }}">Subscribe</a></li> 
-                    </ul>
-                      </div>
+                        <form action="/create-checkout-session" method="POST">
+                            <div class="form-group">
+                                <input type="hidden" name="lookup_key" value="utopytest" />
+                                <input type="submit" class="btn btn-default" id="checkout-button" />
+                            </div>
+                        </form>
                       <div class="header-right">
                           <ul>
                               
