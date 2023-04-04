@@ -1,2 +1,3 @@
 
 currentPersonID = ""
+cPisSubsribed = False

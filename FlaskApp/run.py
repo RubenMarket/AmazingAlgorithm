@@ -26,7 +26,7 @@ import stripe
 #   --> pip3 install -r requirements.txt
 
 # run application 
-#   --> pytho3 run.py
+#   --> python run.py
 
 
 # stop application 
@@ -59,7 +59,7 @@ db = client.Utopyism
 People = db.People
 # MainBase = db.MainBase
 # News = db.News
-YOUR_DOMAIN = 'http://127.0.0.1:5000'
+YOUR_DOMAIN = 'http://localhost:5000'
 
 
      
@@ -104,8 +104,11 @@ def dull():
 #signed in route (signed in home page)
 @app.route("/home",methods = ['POST','GET'])
 def home():
-    
-    
+    if user.currentPersonID == "":
+        return render_template("dull.html")
+        
+    if user.cPisSubsribed == True:
+        return render_template("home.html")
     #set up logged in user and subscribed user
     # if 'email' in session:
     #    setUpHome()
@@ -173,8 +176,8 @@ def google_auth():
 def facebook():
    
     # Facebook Oauth Config
-    FACEBOOK_CLIENT_ID = 'FACEBOOK_CLIENT_ID'
-    FACEBOOK_CLIENT_SECRET = 'FACEBOOK_CLIENT_SECRET'
+    FACEBOOK_CLIENT_ID = facebookAuthKeys['ClientID']
+    FACEBOOK_CLIENT_SECRET = facebookAuthKeys['ClientSecret']
     oauth.register(
         name='facebook',
         client_id=FACEBOOK_CLIENT_ID,
@@ -196,14 +199,31 @@ def facebook_auth():
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     print("Facebook User ", profile)
-    return redirect('/')
+    email = profile['email']
+    person = People.find_one({Companies.facebook.value : email})
+    if person:
+        user.currentPersonID = person['_id']
+        # set current person
+        # set session data  session["ID"] = returningPerson['_id']
+        print(user.currentPersonID)
+        print("here,facebook auth person found")
+        return redirect('/home')
+    # makenewperson 
+    else:
+        newPerson = Person.makeNewPerson(email=email,company=Companies.facebook.value)
+        People.insert_one(newPerson)
+        user.currentPersonID = newPerson['_id']
+        # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
+        print(user.currentPersonID)
+        print("here1")
+        return redirect('/home')
 
 @app.route('/twitter/')
 def twitter():
    
     # Twitter Oauth Config
-    TWITTER_CLIENT_ID = 'TWITTER_CLIENT_ID'
-    TWITTER_CLIENT_SECRET = 'TWITTER_CLIENT_SECRET'
+    TWITTER_CLIENT_ID = twitterAuthKeys['ClientID']
+    TWITTER_CLIENT_SECRET = twitterAuthKeys['ClientID']
     oauth.register(
         name='twitter',
         client_id=TWITTER_CLIENT_ID,
@@ -226,7 +246,24 @@ def twitter_auth():
     resp = oauth.twitter.get('account/verify_credentials.json')
     profile = resp.json()
     print(" Twitter User", profile)
-    return redirect('/')
+    email = profile['email']
+    person = People.find_one({Companies.twitter.value : email})
+    if person:
+        user.currentPersonID = person['_id']
+        # set current person
+        # set session data  session["ID"] = returningPerson['_id']
+        print(user.currentPersonID)
+        print("here,twitter auth person found")
+        return redirect('/home')
+    # makenewperson 
+    else:
+        newPerson = Person.makeNewPerson(email=email,company=Companies.twitter.value)
+        People.insert_one(newPerson)
+        user.currentPersonID = newPerson['_id']
+        # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
+        print(user.currentPersonID)
+        print("here1")
+        return redirect('/home')
 
 @app.route("/config")
 def get_publishable_key():
