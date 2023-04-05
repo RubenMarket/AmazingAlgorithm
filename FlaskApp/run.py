@@ -57,18 +57,54 @@ oauth = OAuth(app)
 #Database
 db = client.Utopyism
 People = db.People
+Voting = db.Voting
+News = db.News
 # MainBase = db.MainBase
 # News = db.News
 YOUR_DOMAIN = 'http://localhost:5000'
 
+#show live count under info
+votingInfo = Voting.find_one({"_id" : "VoteCounts"})
+LowVotes = votingInfo['LowVote']
+MidVotes = votingInfo['MidVote']
+HighVotes = votingInfo['HighVote']
 
+def AddPerson(newPerson):
+    People.insert_one(newPerson)
+    user.currentPersonID = newPerson['_id']
+    myquery = { "_id": "VoteCounts" }
+    newvalues = { "$inc": { "MidVote": +1 } }
+    Voting.update_one(myquery, newvalues)
+
+def UpdatePersonVote(currentVotedFor,newVotedFor):
+    #midVote is 0, lowVote is -1, highVote is 1
+    if currentVotedFor == 0:
+        #decrement Mid -1
+        return
+    if currentVotedFor == -1:
+        #decrement low -1
+        return
+    if currentVotedFor == 1:
+        #decrement HIgh -1
+        return
+    #Set PersonVotedfor to newVotedFor
+    if newVotedFor == 0:
+        #increment Mid +1
+        return
+    if newVotedFor == -1:
+        #increment low -1
+        return
+    if newVotedFor == 1:
+        #increment HIgh -1
+        return
+    
+    
      
 #intial route (not signed in)
 @app.route("/",methods = ['POST','GET'])
 def dull():
     # check for session cookie, if active then log in person
     # if not session.get("ID"):
-        
     #     return render_template("dull.html")
     # else:
     #     return render_template("home.html")
@@ -156,6 +192,8 @@ def google_auth():
     person = People.find_one({Companies.google.value : email})
     if person:
         user.currentPersonID = person['_id']
+        user.cPisSubsribed = person['isSubscribed']
+        user.aweCoin = person['AweCoin']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
         print(user.currentPersonID)
@@ -164,11 +202,8 @@ def google_auth():
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.google.value)
-        People.insert_one(newPerson)
-        user.currentPersonID = newPerson['_id']
-        # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
-        print(user.currentPersonID)
-        print("here1")
+        AddPerson(newPerson=newPerson)
+        print("after added new person")
         return redirect('/home')
     
     
@@ -365,9 +400,12 @@ def success():
     customerID = str(customer['id'])
     print(customerID)
     print(user.currentPersonID)
+    user.cPisSubsribed = True
     print(" ^^^ ")
     myquery = { "_id": user.currentPersonID }
     newvalues = { "$set": { "paymentID": customerID } }
+    newvalues = { "$set": { "isSubscribed": True } }
+    People.update_one(myquery, newvalues)
     People.update_one(myquery, newvalues)
     
     print(customer)

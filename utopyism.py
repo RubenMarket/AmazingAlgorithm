@@ -1,49 +1,29 @@
-Utopyism Algorithm
+from serverconfig import *
 
-A Profit Maximum Company
+db = client.Utopyism
+News = db.News
+Voting = db.Voting
 
-Biweekly/weekly/quarterly profit max/cap vote
+# Voting = db.Voting
 
-even distribution of cryptocurrency to all participants of company holding an account with them
+# def initVoting():
+#     return {
+#             "_id" : "VoteCounts",
+#             "LowVote" : 0,
+#             "MidVote" : 0,
+#             "HighVote" : 0
+#         }
+    
+# initvote = initVoting()
 
-repeat
-
-
-How are the voting numbers calculated?
-there are always 3 voting options
-
-take 4 variables(total/gross sales,Profit/Income,previous amount distributed to particpants,previous winning voting number)
-
-order them from least to greatest in number
-
-   |------|------|------|
-
-least                 greatest
-
-
-the median between each number are the options( 3 total )
-
-
-to begin, previous amount distributed to particpants and previous winning votng number equals 0
-
-
-
-Money earned over voted profit max gets directly injected into products
- or services that participants can buy with their cryptocurrency
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# def initNews():
+#     return {
+#             "_id" : "AllNews",
+#             "firstNews" : "Utopyism Under Development",
+#             "secondNews" : ""
+#         }
+    
+# initNews = initNews()
 
 #####################################
 TotalProfit = 0
@@ -64,28 +44,12 @@ AccountHolders = 0
 # Number of Accounts in Database
 hasVotingEnded = False
 # 12:00am Monday
-votesfor1 = 0
-votesfor2 = 0
-votesfor3 = 0
+votingInfo = Voting.find_one({"_id" : "VoteCounts"})
+LowVotes = votingInfo['LowVote']
+MidVotes = votingInfo['MidVote']
+HighVotes = votingInfo['HighVote']
 # Votes for each option
 #######################################
-# User Specific Information
-MyAwecoin = 0
-isAweMember = True
-hasVoted = False
-personalidentifier = 0
-
-
-def showlivecount(x, y, z):
-    # showing count on info page
-    votesfor1label = x
-    print(votesfor1label)
-    votesfor2label = y
-    print(votesfor2label)
-    votesfor3label = z
-    print(votesfor3label)
-    # update labels on count
-    return
 
 
 def updateEarningsInfo(a, b, c, d):
