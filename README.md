@@ -1,19 +1,7 @@
 # Utopyism
+<img width="1347" alt="Screen Shot 2023-05-25 at 4 35 08 PM" src="https://github.com/RubenMarket/Utopyism/assets/27410534/8bfd843e-69aa-42c7-8236-04c0653ce4b0">
 
-What is Utopyism?
-
--My invention,A Socio-techno-philosophical-economic-algorithmic societal structure. Name derived from perfecion, even though perfection is impossible in practice, this is the best it gets
-
-Directly solves these problems:
-World Hunger, poverty, wealth inequality, inflation
-Indirectly solves: war, racism, energy issues, mental health issues
-
-How Does it Work?
-Everyone who signs in has an account, everyone with an account can vote on profit max and earn awecoin(the cryptocurrency) biweekly. Eventually everyone can use thier awecoin to buy items from our store such as merch or giftcards.
-
-Why Subscribe?
-A subscription to utopyism is a contribution to peace on earth
-
+<img width="1347" alt="Screen Shot 2023-05-25 at 4 35 21 PM" src="https://github.com/RubenMarket/Utopyism/assets/27410534/e2128441-f136-443f-824e-510c28ef45e7">
 
 Utopyism:
 
