@@ -2,3 +2,4 @@
 .vscode/
 FlaskApp/config.py
 FlaskApp/__pycache__
+FlaskApp/venv/
