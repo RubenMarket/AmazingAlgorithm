@@ -29,25 +29,6 @@
         </header>
         <section class="news-banner shop-banner">
             <div class="news-banner-inner">
-                <div class="navigation">
-                    <ul>
-                        <li>
-                            <a href="{{ url_for('news') }}">
-                                <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('shop') }}">
-                                <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url_for('info') }}">
-                                <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="create-modal-main shop-main">
                     <div class="create-modal shop-product">
                         <div class="product-area">
@@ -64,7 +45,33 @@
                         </form>
                     </div>
                 </div>
-                
+                <div class="pricing-table">
+                    <div class="row no-gutters">
+                        <div class="col">
+                            <div class="pricing-box">
+                                <a href="{{ url_for('news') }}">
+                                    <img src="{{ url_for('static',filename='images/news-icon.svg') }}" alt=""/>
+            
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col middle">
+                            <div class="pricing-box">
+                                <a href="{{ url_for('shop') }}">
+                                    <img src="{{ url_for('static',filename='images/shop-icon.svg') }}" alt=""/>
+            
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col col-last">
+                            <div class="pricing-box">
+                                <a href="{{ url_for('info') }}">
+                                    <img src="{{ url_for('static',filename='images/info-icon.svg') }}" alt=""/>
+            
+                                </a>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </section>
         {% endblock %}

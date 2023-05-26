@@ -79,7 +79,7 @@
         font-size: 23px;
     }
     .pricing-table .middle {
-        height: 75px;
+        /* height: 100px; */
     }
     .create-modal-main {
         padding: 95px 0 0 0;
@@ -96,12 +96,12 @@
         padding-left: 20px;
     }
     .create-modal form .form-group {
-        margin-bottom: 15px;
+        /* margin-bottom: 15px; */
     }
     .create-modal.shop-product {
         margin-bottom: 35px;
         width: 88%;
-        margin-left: 3%;
+        /* margin-left: 3%; */
         padding: 5px 15px 10px 0;
     }
     h4.product-price{
@@ -161,7 +161,7 @@
         /* padding-bottom: 70px */
     }
     .pricing-table .middle {
-        height: 80px;
+        /* height: 80px; */
     }
     header {
         padding: 15px 0;
@@ -224,9 +224,6 @@
     .create-modal-main {
         padding: 90px 0 0 0;
     }
-    .create-modal.shop-product {
-        margin-left: 2%;
-    }
     .create-modal.shop-product form {
         max-width: 235px;
     }
@@ -274,7 +271,7 @@
         padding: 15px 0;
     }
     .pricing-table .middle {
-        height: 50px;
+        /* height: 50px; */
     }
     .news-banner-inner {
         height: calc(100%);
@@ -288,14 +285,13 @@
         font-size: 12px;
     }
     .create-modal.shop-product {
-        margin-left: 2%;
         width: 84%;
     }
     .create-modal.info-setting form {
         max-width: 85%;
     }
     .create-modal.info-setting {
-        margin-left: 46px;
+        /* margin-left: 46px; */
         width: 77%;
     }
     .create-modal.awe-membership {
