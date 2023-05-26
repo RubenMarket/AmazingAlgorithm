@@ -10,20 +10,26 @@
           <div class="row">
               <div class="col-12">
                   <div class="header-inner">
+                    <div></div>
                       <div class="header-retting">
-                        <form action="/create-checkout-session" method="POST">
-                            <div class="form-group">
-                                <input type="hidden" name="lookup_key" value="utopytest" />
-                                <input type="submit" class="btn btn-default" id="checkout-button" />
-                            </div>
-                        </form>
+                        <script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
+
+<stripe-buy-button
+  buy-button-id="buy_btn_1NBP0TBRa4aUdrbVQtMss0tH"
+  publishable-key="pk_test_51MoHqnBRa4aUdrbVEvka86Y5M67k6oLRYatu0j1myuiNGOn8U2oLzY7YimL8n5Hl2fXX3oUpYkUtK4NT3eLUD4Er00vMdO6qZx"
+>
+</stripe-buy-button>
+
                       <div class="header-right">
-                          <ul>
+                          <!-- <ul>
                               
                               <li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="{{ url_for('static',filename='images/menu.svg') }}" alt="" /></a></li>
-                          </ul>
+                          </ul> -->
                       </div>
                   </div>
+                  <div></div>
               </div>
           </div>
       </div>

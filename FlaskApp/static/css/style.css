@@ -69,6 +69,7 @@ h6 {
 }
 a {
     text-decoration: none;
+    margin-right: 7px;
     /* transition: all .5s ease-in-out; */
 }
 
@@ -102,6 +103,7 @@ img {
     display: inline-block;
     max-width: 100%;
     height: auto;
+    border-radius: 10px;
 }
 .wrapper{
     overflow: hidden;
@@ -278,7 +280,7 @@ header{
     /* padding-bottom: 80px; */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 
 }
 .navigation ul li {
@@ -294,7 +296,7 @@ header{
     font-family: 'Avenir Next';
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: column;
     font-size: 20px;
     width: 55px;
@@ -385,11 +387,19 @@ header{
 .pricing-table .col-last .pricing-box{
     border-radius: 21px 21px 0 0;
 }
+
+.newsbox{
+align-items: center;
+
+}
 /********* CREAT PAGE *******/
 .logo{
     display: flex;
     align-items: center;
     margin-left: 40px;
+    width:5%;
+    height:5%;
+    border-radius: 30px;
 }
 .logo a{
     color: #000000;
@@ -472,7 +482,7 @@ header{
 .create-modal.shop-product{
     margin-bottom: 35px;
     width: 1289px;
-    padding: 48px 15px 10px 0;
+    padding: 5px 15px 10px 0;
 }
 .product-area{
     height: 252px;
@@ -550,5 +560,6 @@ label.faq{
     color: #000000;
 }
 .content-area{
+    text-align: center;
     height: 460px;
 }

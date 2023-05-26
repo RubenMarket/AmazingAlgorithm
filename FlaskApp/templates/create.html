@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="header-inner">
                             <div class="logo">
-                                <a href="{{ url_for('home') }}">A Sirius Company</a>
+                                <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.png') }}" alt="" /></a>
                             </div>
                             <div class="header-right">
                                 <ul>
@@ -47,27 +47,6 @@
                 </div>
                 <div class="create-modal-main">
                     <div class="create-modal">
-                        <form method="POST" action="">
-                            <div class="form-group">
-                                <input type="username" name="username" class="form-control" maxlength="11" placeholder="username" />
-                                <span>@ asirius.co</span>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="form-control" minlength="7" placeholder="password" />
-                            </div>
-                            <div class="form-group">
-                                <input type="name" name="name" class="form-control" placeholder="name" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="number" class="form-control" placeholder="phone Number" />
-                            </div>
-                            <!-- <div class="form-group">
-                                <input type="text" name="pin" class="form-control" placeholder="pin (5 numbers)" />
-                            </div> -->
-                            <div class="form-group">
-                                <input type="submit" name="createBut" class="btn btn-default" value="Create" />
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
