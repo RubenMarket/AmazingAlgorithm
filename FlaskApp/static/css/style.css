@@ -479,7 +479,7 @@ align-items: center;
     font-size: 24px;
 }
 .create-modal.shop-product{
-    margin-bottom: 35px;
+    /* margin-bottom: 35px; */
     width: 1289px;
     padding: 5px 15px 10px 0;
 }
