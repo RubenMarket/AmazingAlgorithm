@@ -411,15 +411,10 @@
     .header-form form .form-group span{
         display: none;
     }
-    .creat-page .news-banner-inner {
-
-        padding-right: 90px;
-    }
     .navigation ul li {
         margin-bottom: 150px;
     }
     .create-modal.shop-product {
-        margin-left: 15%;
         width: 80%;
     }
     .news-banner.shop-banner{

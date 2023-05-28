@@ -1,4 +1,4 @@
 
-currentPersonID = ""
-cPisSubsribed = False
-aweCoin = 0
+class Person():
+    def Add():
+        return

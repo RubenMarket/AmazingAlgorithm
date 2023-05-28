@@ -15,11 +15,11 @@ class VotingOptions(Enum):
     high = 1
     
 class Person:
-    def __init__(self, id, isSubscribed, AweCoin, paymentID,VotedFor):
+    def __init__(self, id, isMem, AweCoin, customerID,VotedFor):
       self.id = id
-      self.isSubscribed = isSubscribed
+      self.isMem = isMem
       self.AweCoin = AweCoin
-      self.paymentID = paymentID
+      self.customerID = customerID
       self.VotedFor = VotedFor
       
     def makeNewPerson(email,company):
@@ -28,9 +28,9 @@ class Person:
      return {
             company : email,
             "_id" : str(id),
-            "isSubscribed" : False,
+            "isMem" : False,
             "AweCoin" : 0,
-            "paymentID" : "",
+            "customerID" : "",
             "VotedFor" : 0
         }
 

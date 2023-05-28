@@ -1,42 +1,18 @@
-// In production, this should check CSRF, and not pass the session ID.
-// The customer ID for the portal should be pulled from the
-// authenticated user on the server.
-document.addEventListener('DOMContentLoaded', async () => {
-  let searchParams = new URLSearchParams(window.location.search);
-  if (searchParams.has('session_id')) {
-    const session_id = searchParams.get('session_id');
-    document.getElementById('session-id').setAttribute('value', session_id);
-  }
-});
+// console.log("Sanity check!");
+// var stripe = Stripe('pk_live_51MoHqnBRa4aUdrbV2nGLnO1z4n7HK1ot5luCmEgDLynG1AToxO2nnifroox4QlEYnmvR1uRIcUeQeFOgTx6aWck700neNZR82b');
 
-$( ".menu_icon" ).click(function() {
-  $( ".header-form" ).slideToggle();
-
-
-  console.log("Sanity check!");
-
-  // new
-  // Get Stripe publishable key
-  fetch("/config")
-  .then((result) => { return result.json(); })
-  .then((data) => {
-    // Initialize Stripe.js
-    const stripe = Stripe(data.publicKey);
- 
-      // new
-  // Event handler
-  document.querySelector("#submitBtn").addEventListener("click", () => {
-    // Get Checkout Session ID
-    fetch("/create-checkout-session")
-    .then((result) => { return result.json(); })
-    .then((data) => {
-      console.log(data);
-      // Redirect to Stripe Checkout
-      return stripe.redirectToCheckout({sessionId: data.sessionId})
-    })
-    .then((res) => {
-      console.log(res);
-    });
-  });
-});
-});
+// var checkoutButton = document.querySelector('#checkout-button');
+// checkoutButton.addEventListener('click', function () {
+//   stripe.redirectToCheckout({
+//     lineItems: [{
+//       // Define the product and price in the Dashboard first, and use the price
+//       // ID in your client-side code. You may also pass a SKU id into the `price`
+//       // field
+//       price: 'price_1NCCOEBRa4aUdrbVOadSUFVz',
+//       quantity: 1
+//     }],
+//     mode: 'subscription',
+//     successUrl: 'http://localhost:5000/success',
+//     cancelUrl: 'http://localhost:5000/cancel'
+//   });
+// });

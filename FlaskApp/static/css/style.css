@@ -33,28 +33,36 @@ body {
 }
 
 
-a.active,
-a:focus,
-button:focus,
-button.active {
+#checkout-button {
+    font-family: Arial, sans-serif;
+    display: inline-block;
+    background: #144197;
+    border: none;
+    border-bottom: 2px solid #067807;
+    color: #fff;
+    font-size: 17px;
+    padding: 15px 20px 13px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-decoration: none;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+  }
+  #checkout-button:hover {
+    background: #0cc29f;
+  }
+  #checkout-button:active,
+  #checkout-button:focus {
+    background: #0fa688;
+    border-bottom: 0;
+    border-top: 2px solid #0c806a;
     outline: none;
-}
-
-a {
-    text-decoration: none;
-}
-
-a:focus,
-a:hover,
-a:active {
-    outline: 0;
-    box-shadow: none;
-}
-
-a:focus,
-a:hover {
-    text-decoration: none;
-}
+    box-shadow: 0 2px 1px #fff;
+    -moz-box-shadow: 0 2px 1px #fff;
+    -webkit-box-shadow: 0 2px 1px #fff;
+  }
 
 h1,
 h2,
@@ -504,7 +512,7 @@ align-items: center;
     margin-top: 50px;
 }
 .create-modal-main.shop-main{
-    padding: 90px 0 0 0;
+    padding: 30px 0 0 0;
     overflow: auto;
 }
 h4.product-price{

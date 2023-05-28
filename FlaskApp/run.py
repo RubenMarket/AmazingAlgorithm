@@ -5,9 +5,9 @@ from config import *
 from authlib.integrations.flask_client import OAuth
 from flask_session import Session
 from models import *
-import user
 import stripe
 # path
+
 # cd c:\Users\ruben\OneDrive\Desktop\Utopyism\FlaskApp
 
 # Activate the virtualenv (Windows)
@@ -63,6 +63,11 @@ News = db.News
 # News = db.News
 YOUR_DOMAIN = 'http://localhost:5000'
 
+currentPersonID = ""
+currentPersonisMem = False
+currentPersonAweCoin = 0
+
+
 #show live count under info
 votingInfo = Voting.find_one({"_id" : "VoteCounts"})
 LowVotes = votingInfo['LowVote']
@@ -71,7 +76,10 @@ HighVotes = votingInfo['HighVote']
 
 def AddPerson(newPerson):
     People.insert_one(newPerson)
-    user.currentPersonID = newPerson['_id']
+    global currentPersonID
+    global currentPersonisMem
+    currentPersonID = newPerson['_id']
+    currentPersonisMem = False
     myquery = { "_id": "VoteCounts" }
     newvalues = { "$inc": { "MidVote": +1 } }
     Voting.update_one(myquery, newvalues)
@@ -102,13 +110,12 @@ def UpdatePersonVote(currentVotedFor,newVotedFor):
      
 #intial route (not signed in)
 @app.route("/",methods = ['POST','GET'])
-def dull():
+def index():
     # check for session cookie, if active then log in person
-    # if not session.get("ID"):
-    #     return render_template("dull.html")
-    # else:
-    #     return render_template("home.html")
-    return render_template("dull.html")
+    if not session.get("ID"):
+        # if not there in the session then redirect to the login page
+        return redirect("/dull")
+    return redirect("/home")
     # if request.method == "POST":
     #    username = request.form.get("username")
     #    email = username + companyDomainExtension
@@ -135,26 +142,24 @@ def dull():
     #       print("You are successfully logged in")
     #       flash('You are successfully logged in','success')
     #       return redirect(url_for("home", person=username))
-    
+
 
 #signed in route (signed in home page)
 @app.route("/home",methods = ['POST','GET'])
 def home():
-    if user.currentPersonID == "":
-        return render_template("dull.html")
-        
-    if user.cPisSubsribed == True:
-        return render_template("home.html")
-    #set up logged in user and subscribed user
-    # if 'email' in session:
-    #    setUpHome()
-    #  
-    # return render_template('home.html')if google_auth.is_logged_in():
-    #     user_info = google_auth.get_user_info()
-    #     return '<div>You are currently logged in as ' + user_info['given_name'] + '<div><pre>' + json.dumps(user_info, indent=4) + "</pre>"
-
-    # return 'You are not currently logged in.'  
-    return render_template("home.html")
+    
+    global currentPersonID
+    global currentPersonisMem
+    if not session.get("ID"):
+        # if not there in the session then redirect to the login page
+        return redirect("/dull")
+    person = People.find_one({"_id" : session["ID"]})
+    if not person:
+       return
+    if person['isMem'] == True:
+       return render_template("home.html", visibility="hidden")
+   
+    return render_template("home.html", visibility="visible")
 
 @app.route('/google/')
 def google():
@@ -188,23 +193,27 @@ def google_auth():
     # token = oauth.google.authorize_access_token()
     # user = oauth.google.parse_id_token(token)
     print(" Google User ", userinfo)
+    global currentPersonID
+    global currentPersonisMem
     email = userinfo['email']
     person = People.find_one({Companies.google.value : email})
     if person:
-        user.currentPersonID = person['_id']
-        user.cPisSubsribed = person['isSubscribed']
-        user.aweCoin = person['AweCoin']
+        currentPersonID = person['_id']
+        currentPersonisMem = person['isMem']
+        currentPersonAweCoin = person['AweCoin']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
-        print(user.currentPersonID)
+        print(currentPersonID)
         print("here,google auth person found")
-        return redirect('/home')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.google.value)
         AddPerson(newPerson=newPerson)
         print("after added new person")
-        return redirect('/home')
+    session["ID"] = currentPersonID
+    session["isMem"] = currentPersonisMem
+    return redirect('/home')
+    
     
     
 @app.route('/facebook/')
@@ -234,22 +243,23 @@ def facebook_auth():
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     print("Facebook User ", profile)
+    global currentPersonID
     email = profile['email']
     person = People.find_one({Companies.facebook.value : email})
     if person:
-        user.currentPersonID = person['_id']
+        currentPersonID = person['_id']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
-        print(user.currentPersonID)
+        print(currentPersonID)
         print("here,facebook auth person found")
         return redirect('/home')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.facebook.value)
         People.insert_one(newPerson)
-        user.currentPersonID = newPerson['_id']
+        currentPersonID = newPerson['_id']
         # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
-        print(user.currentPersonID)
+        print(currentPersonID)
         print("here1")
         return redirect('/home')
 
@@ -281,22 +291,23 @@ def twitter_auth():
     resp = oauth.twitter.get('account/verify_credentials.json')
     profile = resp.json()
     print(" Twitter User", profile)
+    global currentPersonID
     email = profile['email']
     person = People.find_one({Companies.twitter.value : email})
     if person:
-        user.currentPersonID = person['_id']
+        currentPersonID = person['_id']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
-        print(user.currentPersonID)
+        print(currentPersonID)
         print("here,twitter auth person found")
         return redirect('/home')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.twitter.value)
         People.insert_one(newPerson)
-        user.currentPersonID = newPerson['_id']
+        currentPersonID = newPerson['_id']
         # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
-        print(user.currentPersonID)
+        print(currentPersonID)
         print("here1")
         return redirect('/home')
 
@@ -307,28 +318,26 @@ def get_publishable_key():
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
+    global currentPersonID
     try:
-        prices = stripe.Price.list(
-            lookup_keys=[request.form['lookup_key']],
-            expand=['data.product']
-        )
-
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': prices.data[0].id,
+                    'price': "price_1NCCOEBRa4aUdrbVOadSUFVz",
                     'quantity': 1,
                 },
             ],
             mode='subscription',
+            client_reference_id=currentPersonID,
             success_url=YOUR_DOMAIN +
             '/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=YOUR_DOMAIN + '/cancelled.html',
+            cancel_url=YOUR_DOMAIN + '/cancelled',
         )
-        return redirect(checkout_session.url, code=303)
+        
     except Exception as e:
         print(e)
         return "Server error", 500
+    return redirect(checkout_session.url, code=303)
     
 @app.route('/create-portal-session', methods=['POST'])
 def customer_portal():
@@ -399,17 +408,17 @@ def success():
     customer = stripe.Customer.retrieve(session.customer)
     customerID = str(customer['id'])
     print(customerID)
-    print(user.currentPersonID)
-    user.cPisSubsribed = True
+    global currentPersonID
+    global currentPersonisMem
+    print(currentPersonID)
+    currentPersonisMem = True
     print(" ^^^ ")
-    myquery = { "_id": user.currentPersonID }
-    newvalues = { "$set": { "paymentID": customerID } }
+    myquery = { "_id": currentPersonID }
+    newvalues = { "$set": { "customerID": customerID } }
     newvalues = { "$set": { "isSubscribed": True } }
     People.update_one(myquery, newvalues)
-    People.update_one(myquery, newvalues)
-    
     print(customer)
-    return render_template('home.html')
+    return redirect('/home')
 
 @app.route("/cancelled")
 def cancelled():
@@ -435,6 +444,10 @@ def peeple_EULA():
 @app.route("/peeple/support")
 def peeple_Support():
     return render_template('support.html')
+
+@app.route("/dull")
+def dull():
+    return render_template('dull.html')
 
 @app.route("/news")
 def news():

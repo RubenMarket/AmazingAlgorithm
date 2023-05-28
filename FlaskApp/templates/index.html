@@ -22,13 +22,14 @@
         <!-- Add custom CSS here -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+        <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+       
     </head>
     {% block body %}
     {% endblock %}
-    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+   
 
 </body>
 </html>
