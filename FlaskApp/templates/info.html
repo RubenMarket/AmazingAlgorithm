@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %} <title> info  </title> {% endblock %}
+{% block title %} <title> Utopyism Info  </title> {% endblock %}
 {% block body %}
     <body class="creat-page">
         <header>
@@ -33,8 +33,14 @@
                             <p><strong> 5/24/23</strong></p>
 
                             <p>Utopyism Under Development</p>
-                            </p>
-
+                            <p><a href="{{ url_for('logout') }}">logout</a></p>
+                            <p><a href="{{ url_for('info') }}">delete account</a></p>
+                            <p><a href="{{ url_for('info') }}">thumbs up for utopyism</a></p>
+                            <p><a href="{{ url_for('info') }}">thumbs down for utopyism</a></p>
+                            <p><a href="{{ url_for('info') }}">manage subscription</a></p>
+                            <p><a href="{{ url_for('info') }}">connect facebook</a></p>
+                            <p><a href="{{ url_for('info') }}">connect twitter</a></p>
+                            <p><a href="{{ url_for('info') }}">check previous finnical statements</a></p>
                         </div>
                        
                     </div>

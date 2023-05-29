@@ -357,6 +357,8 @@ header{
 }
 .pricing-box a img{
     height: 75px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 .pricing-box span{
     color: #242F40;
@@ -429,8 +431,7 @@ align-items: center;
 }
 .create-modal{
     width: 578px;
-    border-radius: 14px;
-    background: #fff;
+    border-radius: 25px;
     padding: 46px 0 62px;
     margin: 0 auto;
 }
@@ -512,7 +513,7 @@ align-items: center;
     margin-top: 50px;
 }
 .create-modal-main.shop-main{
-    padding: 30px 0 0 0;
+    /* padding: 30px 0 0 0; */
     overflow: auto;
 }
 h4.product-price{
@@ -567,6 +568,7 @@ label.faq{
     color: #000000;
 }
 .content-area{
+    font-size:2.2vh;
     text-align: center;
     height: 460px;
 }

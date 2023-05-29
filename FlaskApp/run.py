@@ -449,6 +449,12 @@ def peeple_Support():
 def dull():
     return render_template('dull.html')
 
+@app.route("/logout")
+def logout():
+    session["ID"] = None
+    session["isMem"] = None
+    return redirect('/')
+
 @app.route("/news")
 def news():
     
