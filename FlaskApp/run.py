@@ -66,6 +66,7 @@ YOUR_DOMAIN = 'http://localhost:5000'
 currentPersonID = ""
 currentPersonisMem = False
 currentPersonAweCoin = 0
+currentPersonCusID = ""
 
 
 #show live count under info
@@ -74,12 +75,12 @@ LowVotes = votingInfo['LowVote']
 MidVotes = votingInfo['MidVote']
 HighVotes = votingInfo['HighVote']
 
-def AddPerson(newPerson):
+def AddPersonToDB(newPerson):
     People.insert_one(newPerson)
-    global currentPersonID
-    global currentPersonisMem
-    currentPersonID = newPerson['_id']
-    currentPersonisMem = False
+    IncrementMidVoteCount()
+    
+    
+def IncrementMidVoteCount():
     myquery = { "_id": "VoteCounts" }
     newvalues = { "$inc": { "MidVote": +1 } }
     Voting.update_one(myquery, newvalues)
@@ -112,10 +113,12 @@ def UpdatePersonVote(currentVotedFor,newVotedFor):
 @app.route("/",methods = ['POST','GET'])
 def index():
     # check for session cookie, if active then log in person
+    # session["ID"] = None
+    # session["isMem"] = None
     if not session.get("ID"):
         # if not there in the session then redirect to the login page
         return redirect("/dull")
-    return redirect("/home")
+    return redirect("/news")
     # if request.method == "POST":
     #    username = request.form.get("username")
     #    email = username + companyDomainExtension
@@ -147,9 +150,6 @@ def index():
 #signed in route (signed in home page)
 @app.route("/home",methods = ['POST','GET'])
 def home():
-    
-    global currentPersonID
-    global currentPersonisMem
     if not session.get("ID"):
         # if not there in the session then redirect to the login page
         return redirect("/dull")
@@ -157,6 +157,7 @@ def home():
     if not person:
        return
     if person['isMem'] == True:
+       currentPersonCusID = person['stripeID']
        return render_template("home.html", visibility="hidden")
    
     return render_template("home.html", visibility="visible")
@@ -194,25 +195,30 @@ def google_auth():
     # user = oauth.google.parse_id_token(token)
     print(" Google User ", userinfo)
     global currentPersonID
-    global currentPersonisMem
     email = userinfo['email']
     person = People.find_one({Companies.google.value : email})
     if person:
         currentPersonID = person['_id']
         currentPersonisMem = person['isMem']
+        currentPersonCusID = person['stripeID']
         currentPersonAweCoin = person['AweCoin']
+        session["ID"] = person['_id']
+        session["isMem"] = person['isMem']
         # set current person
         # set session data  session["ID"] = returningPerson['_id']
         print(currentPersonID)
         print("here,google auth person found")
+        return redirect('/news')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.google.value)
-        AddPerson(newPerson=newPerson)
+        AddPersonToDB(newPerson=newPerson)
         print("after added new person")
-    session["ID"] = currentPersonID
-    session["isMem"] = currentPersonisMem
-    return redirect('/home')
+        session["ID"] = newPerson['_id']
+        currentPersonID = newPerson['_id']
+        session["isMem"] = False
+        return redirect('/news')
+    
     
     
     
@@ -243,7 +249,6 @@ def facebook_auth():
         'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     print("Facebook User ", profile)
-    global currentPersonID
     email = profile['email']
     person = People.find_one({Companies.facebook.value : email})
     if person:
@@ -252,7 +257,7 @@ def facebook_auth():
         # set session data  session["ID"] = returningPerson['_id']
         print(currentPersonID)
         print("here,facebook auth person found")
-        return redirect('/home')
+        return redirect('/news')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.facebook.value)
@@ -261,7 +266,7 @@ def facebook_auth():
         # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
         print(currentPersonID)
         print("here1")
-        return redirect('/home')
+        return redirect('/news')
 
 @app.route('/twitter/')
 def twitter():
@@ -291,7 +296,6 @@ def twitter_auth():
     resp = oauth.twitter.get('account/verify_credentials.json')
     profile = resp.json()
     print(" Twitter User", profile)
-    global currentPersonID
     email = profile['email']
     person = People.find_one({Companies.twitter.value : email})
     if person:
@@ -300,7 +304,7 @@ def twitter_auth():
         # set session data  session["ID"] = returningPerson['_id']
         print(currentPersonID)
         print("here,twitter auth person found")
-        return redirect('/home')
+        return redirect('/news')
     # makenewperson 
     else:
         newPerson = Person.makeNewPerson(email=email,company=Companies.twitter.value)
@@ -309,7 +313,7 @@ def twitter_auth():
         # currentPerson = Person(id=newPerson['_id'],isSubscribed=newPerson['isSubscribed'],AweCoin=newPerson['AweCoin'],paymentID=newPerson['paymentID'])
         print(currentPersonID)
         print("here1")
-        return redirect('/home')
+        return redirect('/news')
 
 @app.route("/config")
 def get_publishable_key():
@@ -318,7 +322,6 @@ def get_publishable_key():
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
-    global currentPersonID
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -339,91 +342,69 @@ def create_checkout_session():
         return "Server error", 500
     return redirect(checkout_session.url, code=303)
     
-@app.route('/create-portal-session', methods=['POST'])
-def customer_portal():
-    # For demonstration purposes, we're using the Checkout session to retrieve the customer ID.
-    # Typically this is stored alongside the authenticated user in your database.
-    checkout_session_id = request.form.get('session_id')
-    checkout_session = stripe.checkout.Session.retrieve(checkout_session_id)
-
-    # This is the URL to which the customer will be redirected after they are
-    # done managing their billing with the portal.
-    return_url = YOUR_DOMAIN
-
-    portalSession = stripe.billing_portal.Session.create(
-        customer=checkout_session.customer,
-        return_url=return_url,
+@app.route('/create_portal_session', methods=['POST','GET'])
+def create_portal_session():
+    
+    session = stripe.billing_portal.Session.create(
+    customer=currentPersonID,
+    return_url=YOUR_DOMAIN + '/info',
     )
-    return redirect(portalSession.url, code=303)
+    return redirect(session.url,code=303)
 
-@app.route("/subscribe")
-def subscribe():
-    return render_template('subscribe.html')
+@app.route("/webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.get_data(as_text=True)
+    sig_header = request.headers.get("Stripe-Signature")
 
-@app.route('/webhook', methods=['POST'])
-def webhook_received():
-    # Replace this endpoint secret with your endpoint's unique secret
-    # If you are testing with the CLI, find the secret by running 'stripe listen'
-    # If you are using an endpoint defined with the API or dashboard, look in your webhook settings
-    # at https://dashboard.stripe.com/webhooks
-    webhook_secret = 'whsec_12345'
-    request_data = json.loads(request.data)
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, stripe_keys["endpoint_secret"]
+        )
 
-    if webhook_secret:
-        # Retrieve the event by verifying the signature using the raw body and secret if webhook signing is configured.
-        signature = request.headers.get('stripe-signature')
-        try:
-            event = stripe.Webhook.construct_event(
-                payload=request.data, sig_header=signature, secret=webhook_secret)
-            data = event['data']
-        except Exception as e:
-            return e
-        # Get the type of webhook event sent - used to check the status of PaymentIntents.
-        event_type = event['type']
-    else:
-        data = request_data['data']
-        event_type = request_data['type']
-    data_object = data['object']
+    except ValueError as e:
+        # Invalid payload
+        return "Invalid payload", 400
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return "Invalid signature", 400
 
-    print('event ' + event_type)
+    # Handle the checkout.session.completed event
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
 
-    if event_type == 'checkout.session.completed':
-        print('🔔 Payment succeeded!')
-    elif event_type == 'customer.subscription.trial_will_end':
-        print('Subscription trial will end')
-    elif event_type == 'customer.subscription.created':
-        print('Subscription created %s', event.id)
-    elif event_type == 'customer.subscription.updated':
-        print('Subscription created %s', event.id)
-    elif event_type == 'customer.subscription.deleted':
-        # handle subscription canceled automatically based
-        # upon your subscription settings. Or if the user cancels it.
-        print('Subscription canceled: %s', event.id)
+        # Fulfill the purchase...
+        handle_checkout_session(session)
 
-    return jsonify({'status': 'success'})
+    return "Success", 200
 
-@app.route("/success", methods=['GET'])
-def success():
-    session = stripe.checkout.Session.retrieve(request.args.get('session_id'))
+def handle_checkout_session(session):
+    # here you should fetch the details from the session and save the relevant information
+    # to the database (e.g. associate the user with their subscription)
     customer = stripe.Customer.retrieve(session.customer)
-    customerID = str(customer['id'])
-    print(customerID)
-    global currentPersonID
-    global currentPersonisMem
+    stripeID = str(customer['id'])
+    print(customer)
+    print(stripeID)
     print(currentPersonID)
     currentPersonisMem = True
     print(" ^^^ ")
     myquery = { "_id": currentPersonID }
-    newvalues = { "$set": { "customerID": customerID } }
-    newvalues = { "$set": { "isSubscribed": True } }
+    newvalues = { "$set": { "stripeID": stripeID } }
+    newvalues = { "$set": { "isMem": True } }
     People.update_one(myquery, newvalues)
     print(customer)
-    return redirect('/home')
+    return redirect('/news')
+    print("Subscription was successful.")
+    
+@app.route("/success", methods=['GET'])
+def success():
+    print('cancelled')
+    return redirect('/news')
+    
 
 @app.route("/cancelled")
 def cancelled():
     print('cancelled')
-    return render_template('home.html')
+    return redirect('/news')
 
 @app.route("/about")
 def about():
@@ -455,15 +436,42 @@ def logout():
     session["isMem"] = None
     return redirect('/')
 
+@app.route("/delete")
+def delete():
+    person = People.find_one({"_id" : session["ID"]})
+    if person:
+        if person["isMem"] == True:
+            # cancel subscription
+            return
+        if person["hasVoted"] == VotingOptions.middle:
+            # subtract vote
+            return
+        People.delete_one(person)
+        session["ID"] = None
+        session["isMem"] = None
+        return redirect('/')
+    return print("not in db")
+    
+
 @app.route("/news")
 def news():
-    
-    return render_template('news.html')
+    if not session.get("ID"):
+        # if not there in the session then redirect to the login page
+        return redirect("/dull")
+    person = People.find_one({"_id" : session["ID"]})
+    if not person:
+       return redirect('/')
+    if person['isMem'] == True:
+       currentPersonCusID = person['stripeID']
+       return render_template("news.html", visibility="hidden")
+   
+    return render_template("news.html", visibility="visible")
 
 
 @app.route("/shop")
 def shop():
-    return render_template('shop.html')
+    
+    return render_template('shop.html',Awecoin=currentPersonAweCoin)
 
 
 if __name__ == '__main__':

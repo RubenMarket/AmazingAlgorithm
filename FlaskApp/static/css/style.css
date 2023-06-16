@@ -112,6 +112,8 @@ img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    -webkit-filter: drop-shadow(2px 2px 2px #222);
+    filter: drop-shadow(2px 2px 2px #222);
 }
 .wrapper{
     overflow: hidden;
@@ -133,7 +135,7 @@ header{
 }
 .header-inner{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 .header-retting ul{
     display: flex;
@@ -357,8 +359,7 @@ header{
 }
 .pricing-box a img{
     height: 75px;
-    -webkit-filter: drop-shadow(5px 5px 5px #222);
-    filter: drop-shadow(5px 5px 5px #222);
+    
 }
 .pricing-box span{
     color: #242F40;
@@ -406,8 +407,8 @@ align-items: center;
     display: flex;
     align-items: center;
     margin-left: 40px;
-    width:5%;
-    height:5%;
+    width:25vw;
+    /* height:10vh; */
     border-radius: 30px;
 }
 .logo a{
@@ -570,5 +571,5 @@ label.faq{
 .content-area{
     font-size:2.2vh;
     text-align: center;
-    height: 460px;
+    height: 500px;
 }

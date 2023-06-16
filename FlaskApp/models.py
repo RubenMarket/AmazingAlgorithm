@@ -10,16 +10,17 @@ class Companies(Enum):
     amazon = "Amazon"
     
 class VotingOptions(Enum):
-    low = -1
-    middle = 0
-    high = 1
+    low = "low"
+    middle = "middle"
+    high = "high"
     
 class Person:
-    def __init__(self, id, isMem, AweCoin, customerID,VotedFor):
+    def __init__(self, id, isMem, AweCoin, stripeID,subscriptionId,VotedFor):
       self.id = id
       self.isMem = isMem
       self.AweCoin = AweCoin
-      self.customerID = customerID
+      self.stripeID = stripeID
+      self.subscriptionId = subscriptionId
       self.VotedFor = VotedFor
       
     def makeNewPerson(email,company):
@@ -30,8 +31,9 @@ class Person:
             "_id" : str(id),
             "isMem" : False,
             "AweCoin" : 0,
-            "customerID" : "",
-            "VotedFor" : 0
+            "stripeID" : "",
+            "subscriptionID" : "",
+            "VotedFor" : VotingOptions.middle.value
         }
 
 NewsPost = {

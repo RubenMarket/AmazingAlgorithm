@@ -4,21 +4,16 @@
     <body class="creat-page">
         <header>
             <div class="container-fluid">
-                <div class="mobile-logo">
-                    <!-- <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a> -->
-                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="header-inner">
-                            <div class="logo">
-                                 <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/logo.png') }}" alt="" /></a>
-                            </div>
-                            <div class="header-right">
-                                <ul>
-                                    <!-- <li><a class="creat_star creat_star_logo" href="{{ url_for('home') }}"><img src="{{ url_for('static',filename='images/logo.svg') }}" alt="" /></a></li> -->
-                                    <!--<li class="d-block d-md-none"><a class="menu_icon" href="#"><img src="images/menu.svg" alt="" /></a></li>-->
-                                </ul>
-                            </div>
+                            <!-- <div class="logo">
+                                 <a href="{{ url_for('home') }}"><img  src="{{ url_for('static',filename='images/utopyism.png') }}" alt="" /></a>
+                            </div> -->
+                            <script src="https://js.stripe.com/v3/"></script>
+                            <form action="/create-checkout-session" method="POST">
+                              <button type="submit" id="checkout-button" style="visibility:{{ visibility }}">Subscribe</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -31,33 +26,9 @@
                 <div class="create-modal-main shop-main">
                     <div class="create-modal shop-product">
                         <div class="content-area">
-                           
-<p><strong> What is utopyism?</strong></p>
+                  <p><strong> 5/24/23</strong></p>
 
-<p> A Socio-techno-philosophical-economic-algorithmic societal structure. Name derived from perfecion, even though perfection is impossible in practice, this is the best it gets</p>
-</p>
-Directly solves these problems:
-</p>
-<p>
-World Hunger, poverty, wealth inequality, inflation
-</p>
-<p>
-Indirectly solves: war, racism, energy issues, mental health issues
-</p>
-<strong>How Does it Work?</strong>
- <p>
-Everyone who signs in has an account, everyone with an account can vote on profit max and earn awecoin(the cryptocurrency) biweekly. Eventually everyone can use thier awecoin to buy items from our store such as merch or giftcards.
-</p>
-</p>
-<strong>Why Subscribe?</strong>
- <p>
-A subscription to utopyism is a contribution to peace on earth
- </p>
- <p>
-Utopyism implementation and Algorithm(on github)
-</p>
-<p><a href="https://github.com/RubenMarket/Utopyism">Utopyism Details</a></p>
-</p>
+                            <p>Utopyism Under Development</p>
                         </div>
                        
                     </div>
