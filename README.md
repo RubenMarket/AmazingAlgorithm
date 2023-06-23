@@ -31,7 +31,7 @@ number earned over voted profit max(biweekly/weekly) gets divided equaly and eve
 
 Money earned over voted profit max(biweekly/weekly) gets directly injected into products or services that participants can buy with their cryptocurrency.
 
-live voting 
+voting 
 
 _____________
 
