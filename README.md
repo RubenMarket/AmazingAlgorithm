@@ -1,7 +1,4 @@
 # Amazing Algorithm
-<img width="1347" alt="Screen Shot 2023-05-25 at 4 35 08 PM" src="https://github.com/RubenMarket/Utopyism/assets/27410534/8bfd843e-69aa-42c7-8236-04c0653ce4b0">
-
-<img width="1347" alt="Screen Shot 2023-05-25 at 4 35 21 PM" src="https://github.com/RubenMarket/Utopyism/assets/27410534/e2128441-f136-443f-824e-510c28ef45e7">
 
 
 Profit Maximum Companies
