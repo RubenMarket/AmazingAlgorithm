@@ -45,8 +45,16 @@ all money over the most voted profit max should be set aside from rest of profit
 
 as eventually all people will earn enough 'company currency' to buy the items showcased in store
 
------------------------------------------------------------------------------------------------------------------------------------------
+in the case of awesomesoftwares implementation the $2 biweekly subscription is a placeholder/example and also a way to support develop and an algorithm and philosphy that is the best for earth and its inhabitants
 
+the $2 subscription will eventually be replaced by our companies products
+
+which means this philosophy/algorithm can be adopted by any company that has a product and/or service
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+ruben lore:
+
+As a problem solver myself, poverty , wealth inequalty, greed, earths exploitation, inflation and what id consider to be slavery, are all root problems that would be nice to solve. some people may think that itd take a super intelligent artificial intelligence to be able to solve these issues. im sure that this is the solutiom, obviously rome wasnt built in a day and niether was this algorithm or the implemtation of it successfully in my or any other company. captialism has been the best philosphy for mankind for the benfits it has provided though there are unfortunate downsides. with the advent of technology those issues can be solved whilst keep the benfits it has brought us. this algorithm is the evolotion of capitalism i truly believe. first by capping companies profits so that people and companies arent working for a theorteical infinite profit and second by finding a way to stay three steps ahead the greed that has littered earth. whilst this algorithm and my claims on what it can do may only be theory, i am so confident in its benefits that seeing this algorithm officially structured in my primary goal in life. this algorithm is amazing but what i can do is awesome, dont take my word for it just be patient and let my actions speak for me.
 
 
 
