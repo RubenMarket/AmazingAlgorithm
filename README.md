@@ -1,4 +1,53 @@
 # Amazing Algorithm
+How it works:
+
+Vote for a profit maximum every 2 weeks.
+
+Gain company currency every 2 weeks used to buy goods or services.
+
+note: web app/ algorithm is still in development and experimental, some things may slighty change or adjust.
+
+---------------------------------------------------------------------------------------------------------------------------------
+more details:
+
+vote from between 3 options that are dynamically calculated based off a few values on the companys earnings sheet.
+-total/gross sales
+-profit/income
+-previous amount distributed to particpants
+-previous winning voting number
+
+order them from least to greatest in number
+
+|------|------|------|
+
+least             greatest
+
+the median between each number are the options( 3 total )
+
+to begin, previous amount distributed to particpants(0) and previous winning votng number(0)
+
+number earned over voted profit max(biweekly/weekly) gets divided equally and evenly to each participant of the company(holds an account) in 'company currency'
+
+which can used to be goods and services from the store which may include company products and/or any offering on store such as merch or giftcards.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+company perspective:
+
+the key to success in this new landscape is 100% transparency with people and clients
+
+earnings sheet should be made public with all documented expneses as they can greatly influence voting numbers if improperly reported or managed.
+
+companys that do not provide benefit to people or the planet will likely fail as people ultimately control how much profit a company can make.
+
+proper expenditures and bussiness decision are key to success with the adoption of this algorithm
+
+all money over the most voted profit max should be set aside from rest of profits and used directly for items in the company store
+
+as eventually all people will earn enough 'company currency' to buy the items showcased in store
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 Profit Maximum Companies
@@ -26,6 +75,8 @@ to begin, previous amount distributed to particpants(0) and previous winning vot
 number earned over voted profit max(biweekly/weekly) gets divided equaly and evenly to each participant of the company
 
 Money earned over voted profit max(biweekly/weekly) gets directly injected into products or services that participants can buy with their cryptocurrency.
+
+
 
 voting 
 
