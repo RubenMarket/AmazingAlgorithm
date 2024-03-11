@@ -1,7 +1,9 @@
 # Amazing Algorithm
 How it works:
 
-Vote for a profit maximum every 2 weeks.
+Profit Maximum Companies
+
+even distribution of cryptocurrency to all participants of company holding an account with them
 
 Gain company currency every 2 weeks used to buy goods or services.
 
@@ -10,19 +12,19 @@ note: web app/ algorithm is still in development and experimental, some things m
 ---------------------------------------------------------------------------------------------------------------------------------
 more details:
 
-vote from between 3 options that are dynamically calculated based off a few values on the companys earnings sheet.
+3 numbers that are dynamically calculated based off a few values on the companys earnings sheet.
 -total/gross sales
 -profit/income
 -previous amount distributed to particpants
 -previous winning voting number
 
-order them from least to greatest in number
+ordered from least to greatest in number
 
 |------|------|------|
 
 least             greatest
 
-the median between each number are the options( 3 total )
+the mean between each number are the values( 3 total, the middle number is chosen automatically )
 
 to begin, previous amount distributed to particpants(0) and previous winning votng number(0)
 
@@ -57,36 +59,6 @@ ruben lore:
 As a problem solver myself, poverty , wealth inequalty, greed, earths exploitation, inflation and what id consider to be slavery, are all root problems that would be nice to solve. some people may think that itd take a super intelligent artificial intelligence to be able to solve these issues. im sure that this is the solutiom, obviously rome wasnt built in a day and niether was this algorithm or the implemtation of it successfully in my or any other company. captialism has been the best philosphy for mankind for the benfits it has provided though there are unfortunate downsides. with the advent of technology those issues can be solved whilst keep the benfits it has brought us. this algorithm is the evolotion of capitalism i truly believe. first by capping companies profits so that people and companies arent working for a theorteical infinite profit and second by finding a way to stay three steps ahead the greed that has littered earth. whilst this algorithm and my claims on what it can do may only be theory, i am so confident in its benefits that seeing this algorithm officially structured in my primary goal in life. this algorithm is amazing but what i can do is awesome, dont take my word for it just be patient and let my actions speak for me.
 
 
-
-Profit Maximum Companies
-
-Biweekly/weekly/quarterly profit max/cap vote
-
-even distribution of cryptocurrency to all participants of company holding an account with them
-
-repeat
-
-How are the voting numbers calculated? there are always 3 voting options
-
-take 4 variables (total/gross sales,Profit/Income,previous amount distributed to particpants,previous winning voting number)(Earnings sheet)
-
-order them from least to greatest in number
-
-|------|------|------|
-
-least             greatest
-
-the median between each number are the options( 3 total )
-
-to begin, previous amount distributed to particpants(0) and previous winning votng number(0)
-
-number earned over voted profit max(biweekly/weekly) gets divided equaly and evenly to each participant of the company
-
-Money earned over voted profit max(biweekly/weekly) gets directly injected into products or services that participants can buy with their cryptocurrency.
-
-
-
-voting 
 
 _____________
 
